@@ -1,0 +1,2 @@
+-- Initial database migration.
+-- Business tables will be introduced in later migrations.

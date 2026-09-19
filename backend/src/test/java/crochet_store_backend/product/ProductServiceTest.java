@@ -2,20 +2,18 @@ package crochet_store_backend.product;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.math.BigDecimal;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProductServiceTest {
 
     private FakeProductRepository productRepository;
-    private ProductService productService;
+    private ProductServiceImpl productService;
 
     @BeforeEach
     void setUp() {
         productRepository = new FakeProductRepository();
-        productService = new ProductService(productRepository);
+        productService = new ProductServiceImpl(productRepository);
     }
 
     @Test
@@ -27,6 +25,10 @@ class ProductServiceTest {
         assertSame(product, result);
         assertEquals(1, productRepository.findAll().size());
         assertSame(product, productRepository.findAll().get(0));
+
+        assertNotNull(result.getCreatedAt());
+        assertNotNull(result.getUpdatedAt());
+        assertEquals(result.getCreatedAt(), result.getUpdatedAt());
     }
 
     @Test

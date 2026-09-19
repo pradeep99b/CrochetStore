@@ -1,49 +1,16 @@
 package crochet_store_backend.product;
 
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 
-@Service
-public class ProductService {
+public interface ProductService {
 
-    private final ProductRepository productRepository;
+    Product createProduct(Product product);
 
-    public ProductService(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
+    Product getProductById(Long id);
 
-    public Product createProduct(Product product) {
-        return productRepository.save(product);
-    }
+    List<Product> getAllProducts();
 
-    public Product getProductById(Long id) {
-        return productRepository.findById(id)
-                .orElseThrow(() -> new ProductNotFoundException(id));
-    }
+    Product updateProduct(Long id, Product updatedProduct);
 
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
-    }
-
-    public Product updateProduct(Long id, Product updatedProduct) {
-        Product existingProduct = getProductById(id);
-
-        existingProduct.setSku(updatedProduct.getSku());
-        existingProduct.setName(updatedProduct.getName());
-        existingProduct.setDescription(updatedProduct.getDescription());
-        existingProduct.setPrice(updatedProduct.getPrice());
-        existingProduct.setCategory(updatedProduct.getCategory());
-        existingProduct.setActive(updatedProduct.getActive());
-
-        return productRepository.save(existingProduct);
-    }
-
-    public Product deactivateProduct(Long id) {
-        Product product = getProductById(id);
-
-        product.setActive(false);
-
-        return productRepository.save(product);
-    }
+    Product deactivateProduct(Long id);
 }

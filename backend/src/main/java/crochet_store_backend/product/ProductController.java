@@ -5,6 +5,7 @@ import crochet_store_backend.product.dto.ProductResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<ProductResponse> createProduct(
-            @RequestBody ProductRequest request) {
+            @Valid @RequestBody ProductRequest request) {
 
         Product product = new Product();
 
@@ -78,7 +79,7 @@ public class ProductController {
     @PutMapping("/{id}")
     public ProductResponse updateProduct(
             @PathVariable Long id,
-            @RequestBody ProductRequest request) {
+            @Valid @RequestBody ProductRequest request) {
 
         Product product = new Product();
 
